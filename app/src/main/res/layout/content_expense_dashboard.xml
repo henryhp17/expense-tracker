@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.giantmash.expensetracker.ExpenseList"
-    tools:showIn="@layout/activity_expense_list">
+    tools:context="com.giantmash.expensetracker.ExpenseDashboard"
+    tools:showIn="@layout/activity_expense_dashboard">
 
     <TextView
         android:layout_width="wrap_content"
