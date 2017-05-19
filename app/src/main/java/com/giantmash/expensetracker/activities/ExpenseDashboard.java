@@ -1,5 +1,6 @@
-package com.giantmash.expensetracker;
+package com.giantmash.expensetracker.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,16 +9,52 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.giantmash.expensetracker.R;
+
+/**
+ * @author Henry
+ */
 public class ExpenseDashboard extends AppCompatActivity {
+
+    private final String[] mainMenuList = {"New entry", "Transaction history"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense_dashboard);
+
+        // Dashboard toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Dashboard content
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_expense_dashboard, mainMenuList);
+        ListView listView = (ListView) findViewById(R.id.main_menu_list);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent newActivity = null;
+                boolean isValid = true;
+                switch(position) {
+                    case 0:
+                        newActivity = new Intent(ExpenseDashboard.this, ExpenseEntryInsert.class);
+                        break;
+                    default:
+                        isValid = false;
+                        break;
+                }
+
+                if (isValid) startActivity(newActivity);
+            }
+        });
+
+        // Dashboard floating button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
